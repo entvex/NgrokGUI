@@ -1,0 +1,56 @@
+﻿<Window x:Class="ngrokGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Ngrok gui" Height="450" Width="800" Closed="Window_Closed" Icon="/tunnel-icon-38495.png">
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="btnMenuItemAddNew_OnClick" />
+                <!--<MenuItem Header="_Settings" />-->
+                <Separator />
+                <MenuItem Header="_Exit" Click="btnMenuItemExit_OnClick" />
+            </MenuItem>
+
+            <!--<MenuItem Header="_Help">
+                <MenuItem Header="_About"></MenuItem>
+            </MenuItem>-->
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
+            <StatusBarItem>Status:</StatusBarItem>
+            <StatusBarItem Name="sbStatus" />
+        </StatusBar>
+
+        <Grid>
+            <ListView Name="lwTunnels" ItemsSource="{Binding}">
+
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="CopyUrl" Click="btnMenuItemCopy_OnClick" />
+                        <MenuItem Header="Stop Tunnel" Click="btnMenuItemStopTunnel_OnClick" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+
+                <ListView.View>
+                    <GridView>
+
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+
+                        <GridViewColumn Header="Protocol" DisplayMemberBinding="{Binding Protocol}" />
+
+                        <GridViewColumn Header="Port" DisplayMemberBinding="{Binding Port}" />
+
+                        <GridViewColumn Header="Url" DisplayMemberBinding="{Binding Url}" />
+
+                    </GridView>
+
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+    </DockPanel>
+</Window>

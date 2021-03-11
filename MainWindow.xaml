@@ -15,23 +15,26 @@
                 <MenuItem Header="_Exit" Click="btnMenuItemExit_OnClick" />
             </MenuItem>
 
-            <!--<MenuItem Header="_Help">
-                <MenuItem Header="_About"></MenuItem>
-            </MenuItem>-->
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Run First Time Wizard again" Click="BtnMenuItemRunFirstTimeWizard_OnClick"></MenuItem>
+                <!--<MenuItem Header="_About"></MenuItem>-->
+            </MenuItem>
         </Menu>
 
+        <!--
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
             <StatusBarItem>Status:</StatusBarItem>
             <StatusBarItem Name="sbStatus" />
         </StatusBar>
+        -->
 
         <Grid>
             <ListView Name="lwTunnels" ItemsSource="{Binding}">
 
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="CopyUrl" Click="btnMenuItemCopy_OnClick" />
-                        <MenuItem Header="Stop Tunnel" Click="btnMenuItemStopTunnel_OnClick" />
+                        <MenuItem Header="Copy link" Click="btnMenuItemCopy_OnClick" />
+                        <MenuItem Header="Stop tunnel" Click="btnMenuItemStopTunnel_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
 

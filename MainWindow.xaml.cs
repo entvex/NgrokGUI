@@ -133,5 +133,16 @@ namespace ngrokGUI
                 _tunnelDescriptions.Remove(tunnel);
             }
         }
+
+        private void BtnMenuItemRunFirstTimeWizard_OnClick(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to close NgrokGUI in order to run the First Time Wizard, again?", "Are you sure?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Settings settings = new Settings {firstTimeSetupDone = false};
+                File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
+                Close();
+            }
+        }
     }
 }

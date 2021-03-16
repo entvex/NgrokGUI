@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>tunnel-icon-38495.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NgrokSharp" Version="1.0.1" />
+    <PackageReference Include="NgrokSharp" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -24,8 +24,6 @@
   </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -49,13 +47,15 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-NgrokGUI is a windows GUI for ngrok. It helps download ngrok, getting it ready for first time use and manage tunnels. The Idea for the project arose because some of my friends wanted a gui to ngrok so they didn't have to use the CLI all time time.
-Later I happened to find that a Dungeons & Dragons community that use [Foundryvtt](https://foundryvtt.com/) to run their game. NgrokGUI allows an easy way for the dungeon master to host the game without spending additional money on hosting or messing with port forwarding. 
+NgrokGUI is a windows GUI for ngrok. It helps download ngrok, getting it ready for first time use and managing tunnels. The idea for the project arose due to friends wanting a gui to ngrok that was more user friendly.
+I later found a Dungeons & Dragons community that uses [Foundryvtt](https://foundryvtt.com/) to run their games. NgrokGUI allows an easy way for the dungeon master to host the game without spending additional money on hosting or messing with port forwarding.
+
+### Built With
+
+* [NgrokSharp](https://github.com/entvex/NgrokSharp)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -70,8 +70,8 @@ To get a local copy up and running follow these simple steps.
 ### Installation
 
 1. Go to the [releases](https://github.com/entvex/NgrokGUI/releases) section.
-2. Download the lastest ngrokGUI.zip and unzip it a place were you would like to keep it.
-3. Run the ngrokGUI.exe and follow the First Time Wizard on screen.
+2. Download the latest NgrokGUI.zip and unzip it a place were you would like to keep it.
+3. Run the NgrokGUI.exe and follow the First Time Wizard on screen.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -80,9 +80,11 @@ This example will show how to use NgrokGUI to share a [Foundryvtt](https://found
 
 1. Make sure NgrokGUI is started and the First Time Wizard is complete.
 2. Click the File button in the upper right and click New tunnel to open the Add New Tunnel window.
-3. Enter a name such as Foundryvtt and make sure the Protocol https is selected. Because Foundryvtts default port is 30000 add that to the Local port field.
+3. Enter a name such as Foundryvtt and make sure the Protocol https is selected. Foundryvtts default port is 30000 add that to the Local port field.
 4. Click the Add new tunnel button.
-5. In the main window right click the tunnel with your chosen name and click copy url and share it with the people who needs access.
+5. In the main window right click the tunnel with your chosen name and click copy url to share it with the people who need access.
+
+![ShowCaseOfStep1to4](https://i.imgur.com/rMgFsGk.gif)
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -120,5 +122,5 @@ Project Link: [https://github.com/entvex/NgrokGUI](https://github.com/entvex/Ngr
 [stars-url]: https://github.com/entvex/NgrokGUI/stargazers
 [issues-shield]: https://img.shields.io/github/issues/entvex/NgrokGUI.svg?style=for-the-badge
 [issues-url]: https://github.com/entvex/NgrokGUI/issues
-[license-shield]: https://img.shields.io/github/license/entvex/repo.svg?style=for-the-badge
-[license-url]: https://github.com/entvex/repo/blob/master/LICENSE.txt
+[license-shield]: https://img.shields.io/github/license/entvex/NgrokGUI.svg?style=for-the-badge
+[license-url]: https://github.com/entvex/NgrokGUI/blob/master/LICENSE.txt

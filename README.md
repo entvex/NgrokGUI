@@ -65,7 +65,7 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 * Windows 7 or Later
-* [.NET 5.0](https://dotnet.microsoft.com/download) or later
+* [.NET 5.0 x64](https://dotnet.microsoft.com/download/dotnet/5.0/runtime/) or later
 * [Ngrok authtoken](https://dashboard.ngrok.com/get-started/setup)
 ### Installation
 
@@ -79,12 +79,12 @@ To get a local copy up and running follow these simple steps.
 This example will show how to use NgrokGUI to share a [Foundryvtt](https://foundryvtt.com/) session.
 
 1. Make sure NgrokGUI is started and the First Time Wizard is complete.
-2. Click the File button in the upper right and click New tunnel to open the Add New Tunnel window.
+2. Click the File button in the upper left and click New to open the Add New Tunnel window.
 3. Enter a name such as Foundryvtt and make sure the Protocol https is selected. Foundryvtts default port is 30000 add that to the Local port field.
 4. Click the Add new tunnel button.
-5. In the main window right click the tunnel with your chosen name and click copy url to share it with the people who need access.
+5. In the main window right click the tunnel with your chosen name and click copy link to share it with the people who need access.
 
-![ShowCaseOfStep1to4](https://i.imgur.com/rMgFsGk.gif)
+![ShowCaseOfStep1to4](https://i.imgur.com/mjJ2WN5.gif)
 
 <!-- ROADMAP -->
 ## Roadmap

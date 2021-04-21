@@ -53,6 +53,9 @@
 NgrokGUI is a windows GUI for ngrok. It helps download ngrok, getting it ready for first time use and managing tunnels. The idea for the project arose due to friends wanting a gui to ngrok that was more user friendly.
 I later found a Dungeons & Dragons community that uses [Foundryvtt](https://foundryvtt.com/) to run their games. NgrokGUI allows an easy way for the dungeon master to host the game without spending additional money on hosting or messing with port forwarding.
 
+#### New version underway!
+I have gotten requests for this application to be ported to Linux and Mac as well. Therefore, I am in the process of rewriting the application in avaloniaui.
+
 ### Built With
 
 * [NgrokSharp](https://github.com/entvex/NgrokSharp)

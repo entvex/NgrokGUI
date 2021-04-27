@@ -5,13 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NgrokGUI.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/tunnel-icon-38495.ico"
         Title="NgrokGUI">
 
-    <Design.DataContext>
+    <!--<Design.DataContext>
         <vm:MainWindowViewModel/>
-    </Design.DataContext>
+    </Design.DataContext>-->
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    
+    <DockPanel LastChildFill="true">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="{Binding}" />
+                <!--<MenuItem Header="_Settings" />-->
+                <Separator />
+                <MenuItem Header="_Exit" Command="{Binding ExitApplication}" />
+            </MenuItem>
+
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Run First Time Wizard again" ></MenuItem>
+                <!--<MenuItem Header="_About"></MenuItem>-->
+            </MenuItem>
+        </Menu>
+        
+        <Grid>
+            
+            <ItemsRepeater Items="{Binding MyList}"></ItemsRepeater>
+            <!--<ListView Name="lwTunnels" ItemsSource="{Binding}">
+
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Copy link" Click="btnMenuItemCopy_OnClick" />
+                        <MenuItem Header="Stop tunnel" Click="btnMenuItemStopTunnel_OnClick" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+
+                <ListView.View>
+                    <GridView>
+
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+
+                        <GridViewColumn Header="Protocol" DisplayMemberBinding="{Binding Protocol}" />
+
+                        <GridViewColumn Header="Port" DisplayMemberBinding="{Binding Port}" />
+
+                        <GridViewColumn Header="Url" DisplayMemberBinding="{Binding Url}" />
+
+                    </GridView>
+
+                </ListView.View>
+            </ListView>-->
+        </Grid>
+        
+    </DockPanel>
+    
+    
+    <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
 
 </Window>

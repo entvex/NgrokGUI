@@ -7,5 +7,6 @@ namespace NgrokGUI.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {
+        
     }
 }

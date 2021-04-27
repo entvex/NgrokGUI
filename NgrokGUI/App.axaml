@@ -8,5 +8,6 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>
+        <StyleInclude Source="avares://NgrokGUI/Icons.axaml " />
     </Application.Styles>
 </Application>

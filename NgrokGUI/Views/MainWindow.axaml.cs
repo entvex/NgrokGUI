@@ -5,6 +5,8 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using NgrokGUI.ViewModels;
 using ReactiveUI;
+using System;
+using NgrokSharp;
 
 namespace NgrokGUI.Views
 {
@@ -18,15 +20,15 @@ namespace NgrokGUI.Views
 #endif
             
             
-            this.WhenActivated(d => d(ViewModel.ShowDialog.RegisterHandler(DoShowDialogAsync)));
+            this.WhenActivated(d => d(ViewModel.ShowAddNewTunnelDialog.RegisterHandler(DoShowDialogAsync)));
         }
         
-        private async Task DoShowDialogAsync(InteractionContext<AddNewTunnelViewModel, FirstTimeWizardViewModel?> interaction)
+        private async Task DoShowDialogAsync(InteractionContext<AddNewTunnelViewModel,StartTunnelDTO> interaction)
         {
             var dialog = new AddNewTunnelWindow();
             dialog.DataContext = interaction.Input;
 
-            var result = await dialog.ShowDialog<FirstTimeWizardViewModel?>(this);
+            var result = await dialog.ShowDialog<StartTunnelDTO?>(this);
             interaction.SetOutput(result);
         }
         

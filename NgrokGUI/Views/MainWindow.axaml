@@ -12,12 +12,11 @@
     <!--<Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>-->
-
     
     <DockPanel LastChildFill="true">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="{Binding}" />
+                <MenuItem Header="_New" Command="{Binding NewTunnel}" />
                 <!--<MenuItem Header="_Settings" />-->
                 <Separator />
                 <MenuItem Header="_Exit" Command="{Binding ExitApplication}" />
@@ -30,9 +29,9 @@
         </Menu>
         
         <Grid>
-            
+            <!--
             <ItemsRepeater Items="{Binding MyList}"></ItemsRepeater>
-            <!--<ListView Name="lwTunnels" ItemsSource="{Binding}">
+            <ListView Name="lwTunnels" ItemsSource="{Binding}">
 
                 <ListBox.ContextMenu>
                     <ContextMenu>

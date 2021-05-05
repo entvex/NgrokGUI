@@ -1,22 +1,24 @@
-﻿using Avalonia;
+﻿using System.Reactive;
+using System.Windows.Input;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using ReactiveUI;
 
 namespace NgrokGUI.Views
 {
-    public class FirstTimeWizardWindow : Window
+    public class AddNewTunnelView : UserControl
     {
-        public FirstTimeWizardWindow()
+        public AddNewTunnelView()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
+        
+        public ReactiveCommand<Unit,string?> AddNewTunnelCommand { get; }
     }
 }

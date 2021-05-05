@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="170"
+             x:Class="NgrokGUI.Views.AddNewTunnelView">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label>Name:</Label>
+        <TextBox Name="tbName" Text="{Binding TunnelName}" Grid.Column="1" Watermark="Type tunnel name" />
+        <Label Grid.Row="1">Protocol:</Label>
+        <ComboBox Name="cobProtocol" Grid.Row="1" Grid.Column="1" Items="{Binding ProtocolList}" SelectedItem="{Binding SelectedProtocol}" >
+        </ComboBox>
+        <Label Grid.Row="2">Local port:</Label>
+        <NumericUpDown Name="nudLocalPort" Value="{Binding LocalPort}" Minimum="0" Maximum="65535" Width="200" Grid.Row="2" Grid.Column="1"/>
+        <Button Name="btnAddNewTunnel" Command="{Binding AddNewTunnelCommand}" Content="Add new tunnel" Grid.Column="1" Grid.Row="3"/>
+    </Grid>
+</UserControl>

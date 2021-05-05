@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Text;
 using System.Windows.Input;
+using NgrokSharp;
 using ReactiveUI;
 
 namespace NgrokGUI.ViewModels
@@ -13,13 +14,13 @@ namespace NgrokGUI.ViewModels
         public MainWindowViewModel()
         {
 
-            ShowDialog = new Interaction<AddNewTunnelViewModel, FirstTimeWizardViewModel?>();
+            ShowAddNewTunnelDialog = new Interaction<AddNewTunnelViewModel, StartTunnelDTO>();
             
             NewTunnel = ReactiveCommand.CreateFromTask(async () =>
             {
                 var addNewTunnel = new AddNewTunnelViewModel();
 
-                var result = await ShowDialog.Handle(addNewTunnel);
+                var result = await ShowAddNewTunnelDialog.Handle(addNewTunnel);
 
                 if (result != null)
                 {
@@ -31,7 +32,7 @@ namespace NgrokGUI.ViewModels
 
         public ICommand NewTunnel { get; }
         
-        public Interaction<AddNewTunnelViewModel,FirstTimeWizardViewModel?> ShowDialog { get; }
+        public Interaction<AddNewTunnelViewModel,StartTunnelDTO> ShowAddNewTunnelDialog { get; }
     }
     
     

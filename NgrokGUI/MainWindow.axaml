@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="NgrokGUI.MainWindow"
+        Title="Ngrok gui" Height="450" Width="800">
+
+        
+        <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="_File">
+                                <MenuItem Header="_New" Click="btnMenuItemAddNew_OnClick" />
+                                <!--<MenuItem Header="_Settings" />-->
+                                <Separator />
+                                <MenuItem Header="_Exit" Click="btnMenuItemExit_OnClick" />
+                        </MenuItem>
+
+                        <MenuItem Header="_Help">
+                                <MenuItem Header="_Run First Time Wizard again" Click="btnMenuItemRunFirstTimeWizard_OnClick"></MenuItem>
+                                <!--<MenuItem Header="_About"></MenuItem>-->
+                        </MenuItem>
+                </Menu>
+                
+
+                <Grid>
+                        
+                </Grid>
+
+        </DockPanel>        
+        
+</Window>

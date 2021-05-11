@@ -23,12 +23,12 @@ namespace NgrokGUI
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void btnMenuItemAddNew_OnClick(object? sender, RoutedEventArgs e)
+        private async void btnMenuItemAddNew_OnClick(object? sender, RoutedEventArgs e)
         {
             var addNewTunnelWindow = new AddNewTunnelWindow();
 
             
-            //var result = await addNewTunnelWindow.ShowDialog<string>(Application.Current.MainWindow);
+            var result = await addNewTunnelWindow.ShowDialog<string>(this);
 
             /*if (addNewTunnelWindow.DialogResult != null && addNewTunnelWindow.DialogResult.Value)
             {

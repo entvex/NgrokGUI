@@ -28,6 +28,7 @@ namespace NgrokGUI
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            
             cobProtocol = this.FindControl<ComboBox>("cobProtocol");
             tbName = this.FindControl<TextBox>("tbName");
             nudLocalPort = this.FindControl<NumericUpDown>("nudLocalPort");

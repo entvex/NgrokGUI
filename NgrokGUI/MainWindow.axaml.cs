@@ -1,4 +1,6 @@
 using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -10,12 +12,46 @@ namespace NgrokGUI
 {
     public class MainWindow : Window
     {
+        
+        private readonly INgrokManager _ngrokManager;
+        private readonly ObservableCollection<TunnelDescription> _tunnelDescriptions;
         public MainWindow()
         {
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
+            
+            _tunnelDescriptions = new ObservableCollection<TunnelDescription>();
+            _ngrokManager = new NgrokManager();
+            
+            Settings settings;
+            try
+            {
+                //Load settings
+                settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("Settings.json"));
+
+                if (settings.firstTimeSetupDone == false)
+                {
+                    /*var firstTimeWizard = new FirstTimeWizard(_ngrokManager);
+                    firstTimeWizard.ShowDialog();
+
+                    if (firstTimeWizard.DialogResult == true)
+                    {
+                        settings.firstTimeSetupDone = true;
+                        File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
+                    }*/
+                }
+            }
+            catch (Exception e)
+            {
+                //TODO MessageBox
+                //MessageBox.Show($"Something went wrong while loading the settings: {e}");
+                Close();
+            }
+
+            _ngrokManager.StartNgrok();
+            
         }
 
         private void InitializeComponent()
@@ -27,16 +63,16 @@ namespace NgrokGUI
         {
             var addNewTunnelWindow = new AddNewTunnelWindow();
 
-            
             var result = await addNewTunnelWindow.ShowDialog<string>(this);
 
-            /*if (addNewTunnelWindow.DialogResult != null && addNewTunnelWindow.DialogResult.Value)
+            if (result == "true")
             {
                 var startTunnelDto = new StartTunnelDTO
                 {
-                    name = addNewTunnelWindow.tbName.Text,
-                    proto = addNewTunnelWindow.cobProtocol.SelectionBoxItem.ToString(),
-                    addr = addNewTunnelWindow.tbLocalPort.Text,
+                    name = addNewTunnelWindow.FindControl<TextBox>("tbName").Text,
+                    proto = addNewTunnelWindow.FindControl<ComboBox>("cobProtocol").SelectedItem?.ToString(),
+                    addr = addNewTunnelWindow.FindControl<NumericUpDown>("nudLocalPort").Text,
+                    //TODO add the URL
                     bind_tls = "false"
                 };
 
@@ -57,9 +93,9 @@ namespace NgrokGUI
 
                     var tunnel = new TunnelDescription
                     {
-                        Name = addNewTunnelWindow.tbName.Text,
-                        Protocol = addNewTunnelWindow.cobProtocol.SelectionBoxItem.ToString(),
-                        Port = Convert.ToInt32(addNewTunnelWindow.tbLocalPort.Text),
+                        Name = addNewTunnelWindow.FindControl<TextBox>("tbName").Text,
+                        Protocol = addNewTunnelWindow.FindControl<ComboBox>("cobProtocol").SelectedItem?.ToString(),
+                        Port = Convert.ToInt32(addNewTunnelWindow.FindControl<NumericUpDown>("nudLocalPort").Value),
                         Url = tunnelDetail.PublicUrl
                     };
                     _tunnelDescriptions.Add(tunnel);
@@ -69,9 +105,10 @@ namespace NgrokGUI
                     var tunnelError =
                         JsonConvert.DeserializeObject<TunnelError>(
                             await httpResponseMessage.Content.ReadAsStringAsync());
-                    MessageBox.Show(tunnelError.Details.Err);
+                    //TODO MessageBox
+                    //MessageBox.Show(tunnelError.Details.Err);
                 }
-            }*/
+            }
         }
 
         private void btnMenuItemExit_OnClick(object? sender, RoutedEventArgs e)

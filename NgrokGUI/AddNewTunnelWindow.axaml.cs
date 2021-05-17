@@ -58,8 +58,7 @@ namespace NgrokGUI
             }
 
             //TODO handle DialogResult
-            //DialogResult = true;
-            Close();
+            Close("true");
         }
     }
 }

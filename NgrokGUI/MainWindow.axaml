@@ -5,7 +5,6 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NgrokGUI.MainWindow"
         Title="Ngrok gui" Height="450" Width="800">
-
         
         <DockPanel>
                 <Menu DockPanel.Dock="Top">
@@ -24,7 +23,13 @@
                 
 
                 <Grid>
-                        
+                        <DataGrid Name="dgTunnels" Items="{Binding _tunnelDescriptions}" AutoGenerateColumns="False" >
+                                <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"  Binding="{Binding Name}" />
+                                        <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" />
+                                        <DataGridTextColumn Header="Port" Binding="{Binding Port}" />
+                                </DataGrid.Columns>
+                        </DataGrid>
                 </Grid>
 
         </DockPanel>        

@@ -6,14 +6,18 @@ using Avalonia.ReactiveUI;
 using NgrokGUI.ViewModels;
 using ReactiveUI;
 using System;
+using Avalonia.Interactivity;
 using NgrokSharp;
 
 namespace NgrokGUI.Views
 {
     public class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
+        
+        public static MainWindow? Instance { get; private set; }
         public MainWindow()
         {
+            Instance = this;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();

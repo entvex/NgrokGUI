@@ -29,6 +29,24 @@
         </Menu>
         
         <Grid>
+            
+            
+            <DataGrid Name="dgTunnels" Items="{Binding People}" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name"  Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" />
+                    <DataGridTextColumn Header="Port" Binding="{Binding Port}"></DataGridTextColumn>
+                </DataGrid.Columns>
+                
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Copy link" Command="{Binding CopylinkCommand}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+            
+            
+            
             <!--
             <ItemsRepeater Items="{Binding MyList}"></ItemsRepeater>
             <ListView Name="lwTunnels" ItemsSource="{Binding}">

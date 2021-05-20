@@ -4,34 +4,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NgrokGUI.MainWindow"
-        Title="Ngrok gui" Height="450" Width="800">
+        Title="Ngrok gui" Width="800" Height="450">
         
         <DockPanel>
                 <Menu DockPanel.Dock="Top">
                         <MenuItem Header="_File">
                                 <MenuItem Header="_New" Click="btnMenuItemAddNew_OnClick" />
-                                <!--<MenuItem Header="_Settings" />-->
                                 <Separator />
-                                <MenuItem Header="_Exit" Click="btnMenuItemExit_OnClick" />
+                                <MenuItem Header="_Exit" />
                         </MenuItem>
 
                         <MenuItem Header="_Help">
-                                <MenuItem Header="_Run First Time Wizard again" Click="btnMenuItemRunFirstTimeWizard_OnClick"></MenuItem>
-                                <!--<MenuItem Header="_About"></MenuItem>-->
+                                <MenuItem Header="_Run First Time Wizard again" ></MenuItem>
                         </MenuItem>
                 </Menu>
-                
 
                 <Grid>
-                        <DataGrid Name="dgTunnels" Items="{Binding _tunnelDescriptions}" AutoGenerateColumns="False" >
+                        <DataGrid Name="dgTunnels" AutoGenerateColumns="False" >
                                 <DataGrid.Columns>
                                         <DataGridTextColumn Header="Name"  Binding="{Binding Name}" />
                                         <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" />
                                         <DataGridTextColumn Header="Port" Binding="{Binding Port}" />
+                                        <DataGridTextColumn Header="Url" Binding="{Binding Url}" />
                                 </DataGrid.Columns>
                         </DataGrid>
                 </Grid>
-
         </DockPanel>        
-        
 </Window>

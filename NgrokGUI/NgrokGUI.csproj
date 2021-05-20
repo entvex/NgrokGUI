@@ -10,4 +10,9 @@
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
         <PackageReference Include="NgrokSharp" Version="1.0.3" />
     </ItemGroup>
+    <ItemGroup>
+      <None Update="Settings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>

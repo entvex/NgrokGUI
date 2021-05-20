@@ -2,8 +2,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="200"
         x:Class="NgrokGUI.FirstTimeWizard"
+        Width="300" Height="200"
         Title="FirstTimeWizard">
-    Welcome to Avalonia!
+    
+    <Window.Styles>
+        <Style Selector="TextBlock.h1">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Styles>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="98*" />
+            <RowDefinition Height="19*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="18*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="27*" />
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="168*" />
+            <ColumnDefinition Width="16*" />
+            <ColumnDefinition Width="27*" />
+            <ColumnDefinition Width="27*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Classes="h1" Name="txtbkInstruction" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4"
+                   TextWrapping="WrapWithOverflow" Grid.RowSpan="2">
+            
+            Welcome to the First Time Wizard!. When you start the download process, please wait while it downloads ngrok.
+        </TextBlock>
+        <ProgressBar Name="pbprogress" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Minimum="0" Maximum="100" />
+
+        <TextBlock Name="txtbkAuthToken" Grid.Row="1" Grid.Column="0" IsVisible="False" Grid.ColumnSpan="2">Token:</TextBlock>
+        <TextBox Name="txtbxAuthToken" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="False" />
+        <Button Name="btnNext" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="Download" />
+    </Grid>
 </Window>

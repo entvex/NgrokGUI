@@ -14,17 +14,19 @@ namespace NgrokGUI
     {
         
         private readonly INgrokManager _ngrokManager;
-        private readonly ObservableCollection<TunnelDescription> _tunnelDescriptions;
+        private readonly DataGrid dgTunnels;
+        public ObservableCollection<TunnelDescription> _tunnelDescriptions { get; } = new();
         public MainWindow()
         {
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            
-            _tunnelDescriptions = new ObservableCollection<TunnelDescription>();
             _ngrokManager = new NgrokManager();
-            
+
+            //Make sure to stop Ngrok, if the window is closing.
+            Closing += (sender, args) => _ngrokManager.StopNgrok();
+
             Settings settings;
             try
             {
@@ -52,6 +54,11 @@ namespace NgrokGUI
 
             _ngrokManager.StartNgrok();
             
+            
+            dgTunnels = this.Find<DataGrid>("dgTunnels");
+
+            dgTunnels.Items = _tunnelDescriptions;
+
         }
 
         private void InitializeComponent()
@@ -65,6 +72,7 @@ namespace NgrokGUI
 
             var result = await addNewTunnelWindow.ShowDialog<string>(this);
 
+            
             if (result == "true")
             {
                 var startTunnelDto = new StartTunnelDTO
@@ -109,16 +117,6 @@ namespace NgrokGUI
                     //MessageBox.Show(tunnelError.Details.Err);
                 }
             }
-        }
-
-        private void btnMenuItemExit_OnClick(object? sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void btnMenuItemRunFirstTimeWizard_OnClick(object? sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

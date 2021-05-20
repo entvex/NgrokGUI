@@ -17,11 +17,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label>Name:</Label>
-        <TextBox Name="tbName" Grid.Column="1" />
+        <TextBox Name="tbName" Grid.Column="1" Watermark="Type Tunnel Name" />
         <Label Grid.Row="1">Protocol:</Label>
         <ComboBox Name="cobProtocol" Grid.Row="1" Grid.Column="1" />
         <Label Grid.Row="2">Local port:</Label>
-        <NumericUpDown Name="nudLocalPort" Minimum="1" Maximum="65353" Grid.Row="2" Grid.Column="1" />
+        <NumericUpDown Name="nudLocalPort" Minimum="1" Maximum="65353" Value="8080" Grid.Row="2" Grid.Column="1" />
         <Button Name="btnAddNewTunnel" Content="Add new tunnel" Grid.Column="1" Grid.Row="3"
                 Click="btnAddNewTunnel_OnClick" />
     </Grid>

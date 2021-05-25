@@ -13,15 +13,19 @@ namespace NgrokGUI
         private readonly INgrokManager _ngrokManager;
         private State state;
 
-        
         private readonly TextBox txtbxAuthToken;
+        private readonly TextBlock txtbkAuthToken;
         private readonly Button btnNext;
-        private readonly Process pbprogress;
-        private readonly TextBox txtbkInstruction;
+        private readonly ProgressBar pbprogress;
+        private readonly TextBlock txtbkInstruction;
+
+        public FirstTimeWizard()
+        {
+            throw new NotImplementedException();
+        }
         
         public FirstTimeWizard(INgrokManager ngrokManager)
         {
-            TextBox txtbkInstruction;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
@@ -31,12 +35,11 @@ namespace NgrokGUI
             state = State.Start;
 
             //Wire up controls
-
             btnNext = this.Find<Button>("btnNext");
-            pbprogress = this.Find<Process>("pbprogress");
+            pbprogress = this.Find<ProgressBar>("pbprogress");
             txtbxAuthToken = this.FindControl<TextBox>("txtbxAuthToken");
-            txtbkInstruction = this.FindControl<TextBox>("txtbkInstruction");
-            
+            txtbkAuthToken = this.FindControl<TextBlock>("txtbkAuthToken");
+            txtbkInstruction = this.FindControl<TextBlock>("txtbkInstruction");
         }
 
         private void InitializeComponent()
@@ -73,10 +76,9 @@ namespace NgrokGUI
 
             if (state == State.RegsiterAuthtoken)
             {
-                pbprogress.
-                pbprogress.Visibility = Visibility.Hidden;
-                txtbkAuthToken.Visibility = Visibility.Visible;
-                txtbxAuthToken.Visibility = Visibility.Visible;
+                pbprogress.IsVisible = false;
+                txtbkAuthToken.IsVisible = true;
+                txtbxAuthToken.IsVisible = true;
 
                 txtbkInstruction.Text =
                     "Please go to ngrok.com and find your Auth token. Paste it into the textbox below and click register";

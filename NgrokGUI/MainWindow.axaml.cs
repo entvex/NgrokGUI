@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -26,7 +27,18 @@ namespace NgrokGUI
 
             //Make sure to stop Ngrok, if the window is closing.
             Closing += (sender, args) => _ngrokManager.StopNgrok();
+            
+            dgTunnels = this.Find<DataGrid>("dgTunnels");
 
+            dgTunnels.Items = _tunnelDescriptions;
+
+            
+            //FirstTimeSetUp().ContinueWith(task => {});
+            TaskScheduler.FromCurrentSynchronizationContext();
+        }
+
+        private async Task FirstTimeSetUp()
+        {
             Settings settings;
             try
             {
@@ -35,14 +47,15 @@ namespace NgrokGUI
 
                 if (settings.firstTimeSetupDone == false)
                 {
-                    /*var firstTimeWizard = new FirstTimeWizard(_ngrokManager);
-                    firstTimeWizard.ShowDialog();
+                    var firstTimeWizard = new FirstTimeWizard(_ngrokManager);
 
-                    if (firstTimeWizard.DialogResult == true)
+                    var result = await firstTimeWizard.ShowDialog<string>(this);
+
+                    if (result == "result")
                     {
                         settings.firstTimeSetupDone = true;
                         File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
-                    }*/
+                    }
                 }
             }
             catch (Exception e)
@@ -51,14 +64,6 @@ namespace NgrokGUI
                 //MessageBox.Show($"Something went wrong while loading the settings: {e}");
                 Close();
             }
-
-            _ngrokManager.StartNgrok();
-            
-            
-            dgTunnels = this.Find<DataGrid>("dgTunnels");
-
-            dgTunnels.Items = _tunnelDescriptions;
-
         }
 
         private void InitializeComponent()
@@ -117,6 +122,11 @@ namespace NgrokGUI
                     //MessageBox.Show(tunnelError.Details.Err);
                 }
             }
+        }
+
+        private void MenuItem_OnClick(object? sender, RoutedEventArgs e)
+        {
+            _ngrokManager.StartNgrok();
         }
     }
 }

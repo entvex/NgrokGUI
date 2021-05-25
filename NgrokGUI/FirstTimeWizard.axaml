@@ -37,6 +37,6 @@
 
         <TextBlock Name="txtbkAuthToken" Grid.Row="1" Grid.Column="0" IsVisible="False" Grid.ColumnSpan="2">Token:</TextBlock>
         <TextBox Name="txtbxAuthToken" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" IsVisible="False" />
-        <Button Name="btnNext" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="Download" />
+        <Button Name="btnNext" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="Download" Click="BtnNext_OnClick" />
     </Grid>
 </Window>

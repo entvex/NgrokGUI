@@ -13,17 +13,19 @@ namespace NgrokGUI
 {
     public class MainWindow : Window
     {
-        
         private readonly INgrokManager _ngrokManager;
         private readonly DataGrid dgTunnels;
         public ObservableCollection<TunnelDescription> _tunnelDescriptions { get; } = new();
         public MainWindow()
         {
+            _ngrokManager = new NgrokManager();
+            Initialized += OnInitialized;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            _ngrokManager = new NgrokManager();
+            
+            
 
             //Make sure to stop Ngrok, if the window is closing.
             Closing += (sender, args) => _ngrokManager.StopNgrok();
@@ -35,6 +37,11 @@ namespace NgrokGUI
             
             //FirstTimeSetUp().ContinueWith(task => {});
             TaskScheduler.FromCurrentSynchronizationContext();
+        }
+
+        private async void OnInitialized(object? sender, EventArgs e)
+        {
+            FirstTimeSetUp();
         }
 
         private async Task FirstTimeSetUp()
@@ -64,6 +71,8 @@ namespace NgrokGUI
                 //MessageBox.Show($"Something went wrong while loading the settings: {e}");
                 Close();
             }
+            
+            _ngrokManager.StartNgrok();
         }
 
         private void InitializeComponent()
@@ -123,10 +132,17 @@ namespace NgrokGUI
                 }
             }
         }
-
-        private void MenuItem_OnClick(object? sender, RoutedEventArgs e)
+        private void MenuItemExit_OnClick(object? sender, RoutedEventArgs e)
         {
-            _ngrokManager.StartNgrok();
+            Environment.Exit(0);
+        }
+
+        private void MenuItemCopyLink_Click(object? sender, RoutedEventArgs e)
+        {
+            //TODO MessageBox, tell user to click on the item first
+            if (dgTunnels.SelectedIndex == -1) return;
+
+            Application.Current.Clipboard.SetTextAsync(_tunnelDescriptions[dgTunnels.SelectedIndex].Url.ToString());
         }
     }
 }

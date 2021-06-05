@@ -10,9 +10,8 @@
                 <Menu DockPanel.Dock="Top">
                         <MenuItem Header="_File">
                                 <MenuItem Header="_New" Click="btnMenuItemAddNew_OnClick" />
-                                <MenuItem Header="_StartNgrok" Click="MenuItem_OnClick" />
                                 <Separator />
-                                <MenuItem Header="_Exit" />
+                                <MenuItem Header="_Exit" Click="MenuItemExit_OnClick" />
                         </MenuItem>
 
                         <MenuItem Header="_Help">
@@ -28,7 +27,13 @@
                                         <DataGridTextColumn Header="Port" Binding="{Binding Port}" />
                                         <DataGridTextColumn Header="Url" Binding="{Binding Url}" />
                                 </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                                <MenuItem Header="Copy Link" Click="MenuItemCopyLink_Click" />
+                                        </ContextMenu>
+                                </DataGrid.ContextMenu>
                         </DataGrid>
+
                 </Grid>
         </DockPanel>        
 </Window>

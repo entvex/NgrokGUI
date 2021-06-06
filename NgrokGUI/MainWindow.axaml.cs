@@ -24,9 +24,6 @@ namespace NgrokGUI
 #if DEBUG
             this.AttachDevTools();
 #endif
-            
-            
-
             //Make sure to stop Ngrok, if the window is closing.
             Closing += (sender, args) => _ngrokManager.StopNgrok();
             

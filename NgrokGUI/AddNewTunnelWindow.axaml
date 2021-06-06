@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="170"
+        mc:Ignorable="d" d:DesignHeight="170" d:DesignWidth="300"
         x:Class="NgrokGUI.AddNewTunnelWindow"
         Title="Add New Tunnel" Height="170" Width="300" >
     <Grid Margin="10">
@@ -17,12 +17,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label>Name:</Label>
-        <TextBox Name="tbName" Grid.Column="1" Watermark="Type Tunnel Name" />
+        <TextBox Margin="10,0,0,0" Name="tbName" Grid.Column="1" Watermark="Type Tunnel Name" />
         <Label Grid.Row="1">Protocol:</Label>
-        <ComboBox Name="cobProtocol" Grid.Row="1" Grid.Column="1" />
+        <ComboBox Margin="10,0,0,0" Name="cobProtocol" Grid.Row="1" Grid.Column="1" />
         <Label Grid.Row="2">Local port:</Label>
         <NumericUpDown Name="nudLocalPort" Minimum="1" Maximum="65353" Value="8080" Grid.Row="2" Grid.Column="1" />
-        <Button Name="btnAddNewTunnel" Content="Add new tunnel" Grid.Column="1" Grid.Row="3"
+        <Button Name="btnAddNewTunnel" Content="Add new tunnel" Grid.Row="3" Grid.Column="1"
                 Click="btnAddNewTunnel_OnClick" />
     </Grid>
 </Window>

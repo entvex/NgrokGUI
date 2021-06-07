@@ -15,7 +15,7 @@
                         </MenuItem>
 
                         <MenuItem Header="_Help">
-                                <MenuItem Header="_Run First Time Wizard again" ></MenuItem>
+                                <MenuItem Header="_Run First Time Wizard again" Click="MenuItem_OnClickFirstTimeWizard" ></MenuItem>
                         </MenuItem>
                 </Menu>
 

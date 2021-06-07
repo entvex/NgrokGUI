@@ -141,5 +141,17 @@ namespace NgrokGUI
 
             Application.Current.Clipboard.SetTextAsync(_tunnelDescriptions[dgTunnels.SelectedIndex].Url.ToString());
         }
+
+        private void MenuItem_OnClickFirstTimeWizard(object? sender, RoutedEventArgs e)
+        {
+            //TODO MessageBox yes, no
+            //var result = MessageBox.Show("Are you sure you want to close NgrokGUI in order to run the First Time Wizard, again?", "Are you sure?", MessageBoxButton.YesNo);
+            //if (result == MessageBoxResult.Yes)
+            //{
+                Settings settings = new Settings {firstTimeSetupDone = false};
+                File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
+                Environment.Exit(0);
+            //}
+        }
     }
 }

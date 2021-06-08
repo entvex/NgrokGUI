@@ -19,7 +19,7 @@
                 <MenuItem Header="_New" Command="{Binding NewTunnel}" />
                 <!--<MenuItem Header="_Settings" />-->
                 <Separator />
-                <MenuItem Header="_Exit" Command="{Binding ExitApplication}" />
+                <MenuItem Header="_Exit" Command="{Binding ExitApplicationCommand}" />
             </MenuItem>
 
             <MenuItem Header="_Help">
@@ -31,7 +31,7 @@
         <Grid>
             
             
-            <DataGrid Name="dgTunnels" Items="{Binding People}" AutoGenerateColumns="False" >
+            <DataGrid Name="dgTunnels" Items="{Binding People}" AutoGenerateColumns="False" IsReadOnly="True" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name"  Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" />

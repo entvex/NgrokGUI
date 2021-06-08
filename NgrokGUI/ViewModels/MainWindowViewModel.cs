@@ -43,12 +43,13 @@ namespace NgrokGUI.ViewModels
                 }
                 
             });
-            
-            
-            
+
+            ExitApplicationCommand = ReactiveCommand.Create(() => { Environment.Exit(0); });
         }
 
         public ICommand NewTunnel { get; }
+        
+        public ICommand ExitApplicationCommand { get; }
         
         public ICommand CopylinkCommand { get; }
         

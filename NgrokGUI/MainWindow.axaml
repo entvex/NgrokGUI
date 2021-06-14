@@ -20,7 +20,7 @@
                 </Menu>
 
                 <Grid>
-                        <DataGrid Name="dgTunnels" AutoGenerateColumns="False" >
+                        <DataGrid Name="dgTunnels" AutoGenerateColumns="False" IsReadOnly="True" >
                                 <DataGrid.Columns>
                                         <DataGridTextColumn Header="Name"  Binding="{Binding Name}" />
                                         <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" />

@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using MessageBox.Avalonia.Enums;
 using Newtonsoft.Json;
 using NgrokSharp;
 
@@ -28,15 +29,10 @@ namespace NgrokGUI
             Closing += (sender, args) => _ngrokManager.StopNgrok();
             
             dgTunnels = this.Find<DataGrid>("dgTunnels");
-
             dgTunnels.Items = _tunnelDescriptions;
-
-            
-            //FirstTimeSetUp().ContinueWith(task => {});
-            TaskScheduler.FromCurrentSynchronizationContext();
         }
 
-        private async void OnInitialized(object? sender, EventArgs e)
+        private void OnInitialized(object? sender, EventArgs e)
         {
             FirstTimeSetUp();
         }
@@ -54,6 +50,8 @@ namespace NgrokGUI
                     var firstTimeWizard = new FirstTimeWizard(_ngrokManager);
 
                     var result = await firstTimeWizard.ShowDialog<string>(this);
+                    
+                    firstTimeWizard.Close();
 
                     if (result == "result")
                     {
@@ -64,9 +62,10 @@ namespace NgrokGUI
             }
             catch (Exception e)
             {
-                //TODO MessageBox
-                //MessageBox.Show($"Something went wrong while loading the settings: {e}");
-                Close();
+                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Something went wrong!", $"Something went wrong while loading the settings: {e}");
+                await messageBoxStandardWindow.Show();
+                
+                Environment.Exit(0);
             }
             
             _ngrokManager.StartNgrok();
@@ -82,8 +81,9 @@ namespace NgrokGUI
             var addNewTunnelWindow = new AddNewTunnelWindow();
 
             var result = await addNewTunnelWindow.ShowDialog<string>(this);
-
             
+            addNewTunnelWindow.Close();
+
             if (result == "true")
             {
                 var startTunnelDto = new StartTunnelDTO
@@ -124,8 +124,9 @@ namespace NgrokGUI
                     var tunnelError =
                         JsonConvert.DeserializeObject<TunnelError>(
                             await httpResponseMessage.Content.ReadAsStringAsync());
-                    //TODO MessageBox
-                    //MessageBox.Show(tunnelError.Details.Err);
+                    
+                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Tunnel error", tunnelError?.Details.Err);
+                    await messageBoxStandardWindow.Show();
                 }
             }
         }
@@ -134,24 +135,30 @@ namespace NgrokGUI
             Environment.Exit(0);
         }
 
-        private void MenuItemCopyLink_Click(object? sender, RoutedEventArgs e)
+        private async void MenuItemCopyLink_Click(object? sender, RoutedEventArgs e)
         {
-            //TODO MessageBox, tell user to click on the item first
-            if (dgTunnels.SelectedIndex == -1) return;
-
-            Application.Current.Clipboard.SetTextAsync(_tunnelDescriptions[dgTunnels.SelectedIndex].Url.ToString());
+            if (dgTunnels.SelectedIndex == -1)
+            {
+                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Tunnel error", "Make sure to select a row, before you can copy the url");
+                await messageBoxStandardWindow.Show();
+                return;
+            }
+            
+            await Application.Current.Clipboard.SetTextAsync(_tunnelDescriptions[dgTunnels.SelectedIndex].Url.ToString());
         }
 
-        private void MenuItem_OnClickFirstTimeWizard(object? sender, RoutedEventArgs e)
+        private async void MenuItem_OnClickFirstTimeWizard(object? sender, RoutedEventArgs e)
         {
-            //TODO MessageBox yes, no
-            //var result = MessageBox.Show("Are you sure you want to close NgrokGUI in order to run the First Time Wizard, again?", "Are you sure?", MessageBoxButton.YesNo);
-            //if (result == MessageBoxResult.Yes)
-            //{
+            
+            var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Are you sure?", "Are you sure you want to close NgrokGUI in order to run the First Time Wizard, again?",ButtonEnum.YesNo);
+            ButtonResult show = await messageBoxStandardWindow.Show();
+            
+            if (show == ButtonResult.Yes)
+            {
                 Settings settings = new Settings {firstTimeSetupDone = false};
                 File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
                 Environment.Exit(0);
-            //}
+            }
         }
     }
 }

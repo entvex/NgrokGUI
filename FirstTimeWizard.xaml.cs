@@ -32,14 +32,27 @@ namespace ngrokGUI
 
         private void BtnNext_OnClick(object sender, RoutedEventArgs e)
         {
+
             if (state == State.Done)
             {
+                if (string.IsNullOrWhiteSpace(txtbxAuthToken.Text))
+                {
+                    var dialogResult = MessageBox.Show("There is no authtoken, without one the sessions are limited to 2 hours. Are you okay with that?", "Do you want the 2 hour limit ?", MessageBoxButton.YesNo);
+                    
+                if (dialogResult == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
                 _ngrokManager.RegisterAuthToken(txtbxAuthToken.Text);
 
                 DialogResult = true;
 
                 Close();
             }
+
+
 
             if (state == State.Start)
             {

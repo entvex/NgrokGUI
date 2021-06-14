@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NgrokSharp" Version="1.0.2" />
+    <PackageReference Include="NgrokSharp" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>

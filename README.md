@@ -43,7 +43,7 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <!--<li><a href="#acknowledgements">Acknowledgements</a></li>-->
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -115,6 +115,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Project Link: [https://github.com/entvex/NgrokGUI](https://github.com/entvex/NgrokGUI)
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+Thanks to these
+* [Icons8 for icons](https://icons8.com/)
+* [Ngrok for testing account](https://ngrok.com/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

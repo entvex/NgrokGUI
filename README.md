@@ -7,11 +7,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-<!--
+  
   <a href="https://github.com/entvex/NgrokGUI">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="icons8-tunnel-256.png" alt="Logo" width="80" height="80">
   </a>
--->
+
   <h3 align="center">NgrokGUI</h3>
 
   <p align="center">

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Ngrok gui" Height="450" Width="800" Closed="Window_Closed" Icon="/tunnel-icon-38495.png">
+        Title="Ngrok gui" Height="450" Width="800" Closed="Window_Closed" Icon="icons8-tunnel-256.png">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">

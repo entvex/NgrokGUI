@@ -4,11 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>tunnel-icon-38495.ico</ApplicationIcon>
+    <ApplicationIcon>icons8-tunnel-256.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="tunnel-icon-38495.png" />
+    <None Remove="icons8-tunnel-256.ico" />
+    <None Remove="icons8-tunnel-256.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="tunnel-icon-38495.png" />
+    <Resource Include="icons8-tunnel-256.ico" />
+    <Resource Include="icons8-tunnel-256.png" />
   </ItemGroup>
 
   <ItemGroup>

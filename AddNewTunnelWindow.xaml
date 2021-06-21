@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Add New Tunnel" Height="170" Width="300" Icon="/tunnel-icon-38495.png">
+        Title="Add New Tunnel" Height="170" Width="300" Icon="icons8-tunnel-256.png">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

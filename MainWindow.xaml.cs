@@ -31,17 +31,20 @@ namespace ngrokGUI
                 //Load settings
                 settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("Settings.json"));
 
-                if (settings.firstTimeSetupDone == false)
+                if (settings.FirstTimeSetupDone == false)
                 {
                     var firstTimeWizard = new FirstTimeWizard(_ngrokManager);
                     firstTimeWizard.ShowDialog();
 
                     if (firstTimeWizard.DialogResult == true)
                     {
-                        settings.firstTimeSetupDone = true;
+                        settings.FirstTimeSetupDone = true;
+                        settings.DataCenterRegion = firstTimeWizard.cmbTunnelExit.SelectedIndex;
                         File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
                     }
                 }
+
+                _ngrokManager.StartNgrok((NgrokManager.Region)settings.DataCenterRegion);
             }
             catch (Exception e)
             {
@@ -49,7 +52,7 @@ namespace ngrokGUI
                 Close();
             }
 
-            _ngrokManager.StartNgrok();
+            
         }
 
         private void btnMenuItemExit_OnClick(object sender, RoutedEventArgs e)
@@ -139,7 +142,7 @@ namespace ngrokGUI
             var result = MessageBox.Show("Are you sure you want to close NgrokGUI in order to run the First Time Wizard, again?", "Are you sure?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                Settings settings = new Settings {firstTimeSetupDone = false};
+                Settings settings = new Settings {FirstTimeSetupDone = false};
                 File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
                 Close();
             }

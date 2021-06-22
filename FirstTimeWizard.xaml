@@ -4,31 +4,93 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="FirstTimeWizard" Height="200" Width="300" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="98*" />
-            <RowDefinition Height="19*" />
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="18*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="27*" />
-            <ColumnDefinition Width="15*" />
-            <ColumnDefinition Width="168*" />
-            <ColumnDefinition Width="16*" />
-            <ColumnDefinition Width="27*" />
-            <ColumnDefinition Width="27*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Name="txtbkInstruction" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4"
-                   TextWrapping="WrapWithOverflow" Grid.RowSpan="2" FontSize="14">
-            <Bold FontSize="12">Welcome to the First Time Wizard!</Bold>  <LineBreak /> When you start the download process, please wait while it downloads ngrok.
-        </TextBlock>
-        <ProgressBar Name="pbprogress" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Minimum="0" Maximum="100" />
+        Title="FirstTimeWizard" Height="220" Width="310" WindowStartupLocation="CenterScreen" WindowStyle="None">
 
-        <TextBlock Name="txtbkAuthToken" Grid.Row="1" Grid.Column="0" Visibility="Hidden" Grid.ColumnSpan="2">Token:</TextBlock>
-        <TextBox Name="txtbxAuthToken" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" Visibility="Hidden" />
-        <Button Name="btnNext" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="Download"
-                Click="BtnNext_OnClick" />
+    <Window.Resources>
+        <DataTemplate x:Key="cmbTemplate">
+            <WrapPanel Margin="0 5 0 5" >
+                <Image Stretch="Fill" Source="{Binding Flag}" HorizontalAlignment="Left" Margin="0,0,15,0"/>
+                <Label Content="{Binding Country}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </WrapPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Margin="10">
+
+        <TabControl Name="tabcl">
+            <TabItem Header="Download">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="98*" />
+                        <RowDefinition Height="19*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="18*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="27*" />
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="168*"/>
+                        <ColumnDefinition Width="16*" />
+                        <ColumnDefinition Width="27*" />
+                        <ColumnDefinition Width="27*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="txtbkDownloadInstruction" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" TextWrapping="WrapWithOverflow" Grid.RowSpan="2" FontSize="14">
+                        <Bold >Welcome to the First Time Wizard!</Bold>  <LineBreak /> When you start the download process, please wait while it downloads ngrok.
+                    </TextBlock>
+                    <ProgressBar Name="pbprogress" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Minimum="0" Maximum="100" />
+                    <Button Name="btnDownload" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="Download" Click="BtnDownload_OnClick" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Datacenter">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32*" />
+                        <RowDefinition Height="82*" />
+                        <RowDefinition Height="25*" />
+                        <RowDefinition Height="12*" />
+                        <RowDefinition Height="21*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="27*" />
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="19*" />
+                        <ColumnDefinition Width="137*"/>
+                        <ColumnDefinition Width="16*" />
+                        <ColumnDefinition Width="16*" />
+                        <ColumnDefinition Width="27*" />
+                        <ColumnDefinition Width="27*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="3" Grid.Row="0"  HorizontalAlignment="Left" FontSize="15" Width="145" Grid.ColumnSpan="3" >Select closest region</Label>
+                    <ComboBox Grid.Row="1" Grid.Column="3" Name="cmbTunnelExit" ItemTemplate="{StaticResource cmbTemplate}" />
+                    <Button Name="btnSelectDataCenter" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="3" Content="Next" Click="BtnSelectDataCenter_OnClick" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Auth">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="98*" />
+                        <RowDefinition Height="19*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="18*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="27*" />
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="168*"/>
+                        <ColumnDefinition Width="16*" />
+                        <ColumnDefinition Width="27*" />
+                        <ColumnDefinition Width="27*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="txtbkAuthInstruction" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" TextWrapping="WrapWithOverflow" Grid.RowSpan="2" FontSize="14">
+                        <Bold >Please register</Bold>  <LineBreak />Please go to <Hyperlink NavigateUri="https://ngrok.com/"> ngrok.com </Hyperlink> and find your Auth token. Paste it into the textbox below and click Done.
+                    </TextBlock>
+                    <TextBlock Name="txtbkAuthToken" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">Token:</TextBlock>
+                    <TextBox Name="txtbxAuthToken" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" />
+                    <Button Name="btnAuth" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="Done" Click="BtnAuth_OnClick" />
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

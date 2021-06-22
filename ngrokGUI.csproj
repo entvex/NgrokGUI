@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Locations\icons8-australia-48.png" />
+    <None Remove="Assets\Locations\icons8-brazil-48.png" />
+    <None Remove="Assets\Locations\icons8-germany-48.png" />
+    <None Remove="Assets\Locations\icons8-india-48.png" />
+    <None Remove="Assets\Locations\icons8-japan-48.png" />
+    <None Remove="Assets\Locations\icons8-singapore-48.png" />
+    <None Remove="Assets\Locations\icons8-usa-48.png" />
     <None Remove="icons8-tunnel-256.ico" />
     <None Remove="icons8-tunnel-256.png" />
   </ItemGroup>
@@ -17,6 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Locations\icons8-australia-48.png" />
+    <Resource Include="Assets\Locations\icons8-brazil-48.png" />
+    <Resource Include="Assets\Locations\icons8-germany-48.png" />
+    <Resource Include="Assets\Locations\icons8-india-48.png" />
+    <Resource Include="Assets\Locations\icons8-japan-48.png" />
+    <Resource Include="Assets\Locations\icons8-singapore-48.png" />
+    <Resource Include="Assets\Locations\icons8-usa-48.png" />
     <Resource Include="icons8-tunnel-256.ico" />
     <Resource Include="icons8-tunnel-256.png" />
   </ItemGroup>

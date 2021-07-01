@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Add New Tunnel" Height="170" Width="300" Icon="icons8-tunnel-256.png">
+        Title="Add New Tunnel" Height="190" Width="300" Icon="icons8-tunnel-256.png">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -14,17 +14,25 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" Name="wdSubdomain" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <Label>Name:</Label>
         <TextBox Name="tbName" Grid.Column="1" />
+        
         <Label Grid.Row="1">Protocol:</Label>
         <ComboBox Name="cobProtocol" Grid.Row="1" Grid.Column="1" />
+        
         <Label Grid.Row="2">Local port:</Label>
         <TextBox Name="tbLocalPort" Grid.Row="2" Grid.Column="1"
                  PreviewTextInput="NumberValidationTextBox_OnPreviewTextInput"
                  DataObject.Pasting="TbLocalPort_OnPasting" />
-        <Button Name="btnAddNewTunnel" Content="Add new tunnel" Grid.Column="1" Grid.Row="3"
+
+        <Label Grid.Row="3" Name="llsubdomain" >Subdomain:</Label>
+        <TextBox Name="tbSubdomain" Grid.Column="1" Grid.Row="3" />
+
+        <Button Name="btnAddNewTunnel" Content="Add new tunnel" Grid.Column="1" Grid.Row="4"
                 Click="BtnAddNewTunnel_OnClick" />
     </Grid>
 </Window>

@@ -21,26 +21,25 @@
             </MenuItem>
         </Menu>
 
-        <!--
         <StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-            <StatusBarItem>Status:</StatusBarItem>
+            <StatusBarItem>Status: </StatusBarItem>
             <StatusBarItem Name="sbStatus" />
         </StatusBar>
-        -->
 
         <Grid>
             <ListView Name="lwTunnels" ItemsSource="{Binding}">
 
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Copy link" Click="btnMenuItemCopy_OnClick" />
-                        <MenuItem Header="Stop tunnel" Click="btnMenuItemStopTunnel_OnClick" />
+                        <MenuItem Name="btnMenuItemCopy" Header="Copy link" Click="btnMenuItemCopy_OnClick" />
+                        <MenuItem Name="btnMenuItemStopTunnel" Header="Stop tunnel" Click="btnMenuItemStopTunnel_OnClick" />
+                        <MenuItem Name="btnMenuItemDeleteTunnel" Header="Delete tunnel" Click="btnMenuItemDeleteTunnel_OnClick" />
+                        <MenuItem Name="btnMenuItemStartTunnel" Header="Start tunnel" Click="btnMenuItemStartTunnel_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
 
                 <ListView.View>
                     <GridView>
-
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
 
                         <GridViewColumn Header="Protocol" DisplayMemberBinding="{Binding Protocol}" />
@@ -49,6 +48,8 @@
 
                         <GridViewColumn Header="Url" DisplayMemberBinding="{Binding Url}" />
 
+                        <GridViewColumn Header="Active" DisplayMemberBinding="{Binding Active}" />
+                        
                     </GridView>
 
                 </ListView.View>

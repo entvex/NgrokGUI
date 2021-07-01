@@ -1,5 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace ngrokGUI
@@ -9,11 +12,24 @@ namespace ngrokGUI
     /// </summary>
     public partial class AddNewTunnelWindow : Window
     {
+        private readonly List<TunnelDescription> _currentTunnelDescriptions;
         private static readonly Regex _regex = new("[^0-9.-]+");
 
-        public AddNewTunnelWindow()
+
+
+        public AddNewTunnelWindow(List<TunnelDescription> currentTunnelDescriptions ,bool paidAccount = false)
         {
+            _currentTunnelDescriptions = currentTunnelDescriptions;
             InitializeComponent();
+
+            if (!paidAccount)
+            {
+                tbSubdomain.Visibility = Visibility.Hidden;
+                llsubdomain.Visibility = Visibility.Hidden;
+                wdSubdomain.MaxHeight = 0;
+                Height = 170;
+            }
+
             cobProtocol.Items.Add("https");
             cobProtocol.Items.Add("http");
             cobProtocol.Items.Add("tcp");
@@ -35,6 +51,12 @@ namespace ngrokGUI
             if (string.IsNullOrEmpty(tbName.Text))
             {
                 MessageBox.Show("The tunnel must have a name");
+                return;
+            }
+
+            if (_currentTunnelDescriptions.Any(x => x.Name == tbName.Text) )
+            {
+                MessageBox.Show($"A tunnel with name: {tbName.Text} already exists");
                 return;
             }
 

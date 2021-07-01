@@ -15,6 +15,7 @@ namespace ngrokGUI
     {
         private readonly INgrokManager _ngrokManager;
         private readonly ObservableCollection<TunnelDescription> _tunnelDescriptions;
+        private bool PaidAccount;
 
         public MainWindow()
         {
@@ -40,10 +41,14 @@ namespace ngrokGUI
                     {
                         settings.FirstTimeSetupDone = true;
                         settings.DataCenterRegion = firstTimeWizard.cmbTunnelExit.SelectedIndex;
+                        settings.PaidAccount = (bool) firstTimeWizard.cbxPaidAccount.IsChecked;
+
                         File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
                     }
                 }
 
+                PaidAccount = settings.PaidAccount;
+                sbStatus.Content = "connected to " + (NgrokManager.Region)settings.DataCenterRegion;
                 _ngrokManager.StartNgrok((NgrokManager.Region)settings.DataCenterRegion);
             }
             catch (Exception e)
@@ -62,7 +67,7 @@ namespace ngrokGUI
 
         private async void btnMenuItemAddNew_OnClick(object sender, RoutedEventArgs e)
         {
-            var addNewTunnelWindow = new AddNewTunnelWindow();
+            var addNewTunnelWindow = new AddNewTunnelWindow(_tunnelDescriptions.ToList(), PaidAccount);
 
             addNewTunnelWindow.ShowDialog();
 
@@ -73,7 +78,8 @@ namespace ngrokGUI
                     name = addNewTunnelWindow.tbName.Text,
                     proto = addNewTunnelWindow.cobProtocol.SelectionBoxItem.ToString(),
                     addr = addNewTunnelWindow.tbLocalPort.Text,
-                    bind_tls = "false"
+                    bind_tls = "false",
+                    subdomain = addNewTunnelWindow.tbSubdomain.Text
                 };
 
                 // bind_tls http bind an HTTPS or HTTP endpoint or both true, false, or both
@@ -88,7 +94,7 @@ namespace ngrokGUI
                 if ((int) httpResponseMessage.StatusCode == 201)
                 {
                     var tunnelDetail =
-                        JsonConvert.DeserializeObject<TunnelDetail>(
+                        JsonConvert.DeserializeObject<TunnelDetailDTO>(
                             await httpResponseMessage.Content.ReadAsStringAsync());
 
                     var tunnel = new TunnelDescription
@@ -96,14 +102,15 @@ namespace ngrokGUI
                         Name = addNewTunnelWindow.tbName.Text,
                         Protocol = addNewTunnelWindow.cobProtocol.SelectionBoxItem.ToString(),
                         Port = Convert.ToInt32(addNewTunnelWindow.tbLocalPort.Text),
-                        Url = tunnelDetail.PublicUrl
+                        Url = tunnelDetail.PublicUrl,
+                        Active = true
                     };
                     _tunnelDescriptions.Add(tunnel);
                 }
                 else
                 {
                     var tunnelError =
-                        JsonConvert.DeserializeObject<TunnelError>(
+                        JsonConvert.DeserializeObject<TunnelErrorDTO>(
                             await httpResponseMessage.Content.ReadAsStringAsync());
                     MessageBox.Show(tunnelError.Details.Err);
                 }
@@ -130,10 +137,7 @@ namespace ngrokGUI
 
             if (result == 204)
             {
-                var tunnel =
-                    _tunnelDescriptions.SingleOrDefault(
-                        x => x.Name == _tunnelDescriptions[lwTunnels.SelectedIndex].Name);
-                _tunnelDescriptions.Remove(tunnel);
+                _tunnelDescriptions[lwTunnels.SelectedIndex].Active = false;
             }
         }
 
@@ -146,6 +150,64 @@ namespace ngrokGUI
                 File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
                 Close();
             }
+        }
+
+        private async void btnMenuItemStartTunnel_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (lwTunnels.SelectedIndex == -1) return;
+
+            if (_tunnelDescriptions[lwTunnels.SelectedIndex].Active) return;
+
+
+            var startTunnelDto = new StartTunnelDTO
+            {
+                name = _tunnelDescriptions[lwTunnels.SelectedIndex].Name,
+                proto = _tunnelDescriptions[lwTunnels.SelectedIndex].Protocol,
+                addr = _tunnelDescriptions[lwTunnels.SelectedIndex].Port.ToString(),
+                bind_tls = "false",
+                subdomain = _tunnelDescriptions[lwTunnels.SelectedIndex].SubDomain
+            };
+
+            // bind_tls http bind an HTTPS or HTTP endpoint or both true, false, or both
+            if (startTunnelDto.proto == "https")
+            {
+                startTunnelDto.proto = "http";
+                startTunnelDto.bind_tls = "true";
+            }
+
+            var httpResponseMessage = await _ngrokManager.StartTunnel(startTunnelDto);
+
+            if ((int)httpResponseMessage.StatusCode == 201)
+            {
+                var tunnelDetail =
+                    JsonConvert.DeserializeObject<TunnelDetailDTO>(
+                        await httpResponseMessage.Content.ReadAsStringAsync());
+
+                _tunnelDescriptions[lwTunnels.SelectedIndex].Active = true;
+                _tunnelDescriptions[lwTunnels.SelectedIndex].Url = tunnelDetail.PublicUrl;
+            }
+            else
+            {
+                var tunnelError =
+                    JsonConvert.DeserializeObject<TunnelErrorDTO>(
+                        await httpResponseMessage.Content.ReadAsStringAsync());
+                MessageBox.Show(tunnelError.Details.Err);
+            }
+
+        }
+
+        private async void btnMenuItemDeleteTunnel_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (lwTunnels.SelectedIndex == -1) return;
+
+            if (_tunnelDescriptions[lwTunnels.SelectedIndex].Active)
+            {
+                var result = await _ngrokManager.StopTunnel(_tunnelDescriptions[lwTunnels.SelectedIndex].Name);
+            }
+
+                var tunnel = _tunnelDescriptions.SingleOrDefault(x => x.Name == _tunnelDescriptions[lwTunnels.SelectedIndex].Name);
+                _tunnelDescriptions.Remove(tunnel);
+
         }
     }
 }

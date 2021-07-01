@@ -70,10 +70,10 @@
             <TabItem Header="Auth">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="98*" />
+                        <RowDefinition Height="70*" />
                         <RowDefinition Height="19*" />
-                        <RowDefinition Height="10*" />
-                        <RowDefinition Height="18*" />
+                        <RowDefinition Height="19*" />
+                        <RowDefinition Height="21*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="27*" />
@@ -87,7 +87,12 @@
                         <Bold >Please register</Bold>  <LineBreak />Please go to <Hyperlink NavigateUri="https://ngrok.com/"> ngrok.com </Hyperlink> and find your Auth token. Paste it into the textbox below and click Done.
                     </TextBlock>
                     <TextBlock Name="txtbkAuthToken" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">Token:</TextBlock>
-                    <TextBox Name="txtbxAuthToken" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" />
+                    <TextBox Name="txtbxAuthToken" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" TextChanged="TxtbxAuthToken_OnTextChanged" />
+
+                    <TextBlock Name="txtbPaid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">Do you have a paid Ngrok account ?:</TextBlock>
+                    <CheckBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Name="cbxPaidAccount" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"></CheckBox>
+
+                    
                     <Button Name="btnAuth" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Content="Done" Click="BtnAuth_OnClick" />
                 </Grid>
             </TabItem>

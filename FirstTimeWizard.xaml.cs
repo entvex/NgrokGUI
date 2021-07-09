@@ -78,11 +78,33 @@ namespace ngrokGUI
                 }
             }
 
+            if ((bool)cbxPaidAccount.IsChecked && !string.IsNullOrWhiteSpace(txtbxAuthToken.Text))
+            {
+                var dialogResult = MessageBox.Show("Are you sure have a paid Ngrok account?", "Are you sure have a paid account?", MessageBoxButton.YesNo);
+
+                if (dialogResult == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
+
             _ngrokManager.RegisterAuthToken(txtbxAuthToken.Text);
 
             DialogResult = true;
 
             Close();
+        }
+
+        private void TxtbxAuthToken_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtbxAuthToken.Text))
+            {
+                cbxPaidAccount.IsEnabled = false;
+            }
+            else
+            {
+                cbxPaidAccount.IsEnabled = true;
+            }
         }
     }
 }

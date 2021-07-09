@@ -103,7 +103,8 @@ namespace ngrokGUI
                         Protocol = addNewTunnelWindow.cobProtocol.SelectionBoxItem.ToString(),
                         Port = Convert.ToInt32(addNewTunnelWindow.tbLocalPort.Text),
                         Url = tunnelDetail.PublicUrl,
-                        Active = true
+                        Active = true,
+                        SubDomain = addNewTunnelWindow.tbSubdomain.Text
                     };
                     _tunnelDescriptions.Add(tunnel);
                 }
@@ -126,6 +127,9 @@ namespace ngrokGUI
         {
             if (lwTunnels.SelectedIndex == -1) return;
 
+            if (_tunnelDescriptions[lwTunnels.SelectedIndex].Url == null) return;
+            
+
             Clipboard.SetText(_tunnelDescriptions[lwTunnels.SelectedIndex].Url.ToString());
         }
 
@@ -138,6 +142,12 @@ namespace ngrokGUI
             if (result == 204)
             {
                 _tunnelDescriptions[lwTunnels.SelectedIndex].Active = false;
+
+                if (string.IsNullOrWhiteSpace(_tunnelDescriptions[lwTunnels.SelectedIndex].SubDomain))
+                {
+                    _tunnelDescriptions[lwTunnels.SelectedIndex].Url = null;
+                }
+                
             }
         }
 

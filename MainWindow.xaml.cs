@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -50,6 +51,12 @@ namespace ngrokGUI
                 PaidAccount = settings.PaidAccount;
                 sbStatus.Content = "connected to " + (NgrokManager.Region)settings.DataCenterRegion;
                 _ngrokManager.StartNgrok((NgrokManager.Region)settings.DataCenterRegion);
+
+                if (File.Exists("SavedTunnels.json"))
+                {
+                    JsonConvert.DeserializeObject<List<TunnelDescription>>(File.ReadAllText("SavedTunnels.json"))?.ForEach( x => _tunnelDescriptions.Add(x));
+                }
+
             }
             catch (Exception e)
             {
@@ -121,6 +128,19 @@ namespace ngrokGUI
         private void Window_Closed(object sender, EventArgs e)
         {
             _ngrokManager.StopNgrok();
+
+            foreach (var tunnelDescription in _tunnelDescriptions)
+            {
+                tunnelDescription.Active = false;
+
+                if (string.IsNullOrWhiteSpace(tunnelDescription.SubDomain))
+                {
+                    tunnelDescription.Url = null;
+                }
+            }
+
+            File.WriteAllText(@"SavedTunnels.json", JsonConvert.SerializeObject(_tunnelDescriptions));
+
         }
 
         private void btnMenuItemCopy_OnClick(object sender, RoutedEventArgs e)

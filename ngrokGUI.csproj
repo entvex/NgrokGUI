@@ -5,6 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>icons8-tunnel-256.ico</ApplicationIcon>
+    <AssemblyName>ngrokGUI</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,12 +34,6 @@
     <Resource Include="Assets\Locations\icons8-usa-48.png" />
     <Resource Include="icons8-tunnel-256.ico" />
     <Resource Include="icons8-tunnel-256.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Settings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

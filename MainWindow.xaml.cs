@@ -16,6 +16,8 @@ namespace ngrokGUI
     {
         private readonly INgrokManager _ngrokManager;
         private readonly ObservableCollection<TunnelDescription> _tunnelDescriptions;
+        private readonly string _downloadFolder =
+                $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar}NgrokSharp{Path.DirectorySeparatorChar}";
         private bool PaidAccount;
 
         public MainWindow()
@@ -27,11 +29,18 @@ namespace ngrokGUI
 
             _ngrokManager = new NgrokManager();
 
+
+            if (!File.Exists($"{_downloadFolder}Settings.json"))
+            {
+                Directory.CreateDirectory(_downloadFolder);
+                File.WriteAllText($"{_downloadFolder}Settings.json", "{\r\n  \"firstTimeSetupDone\": false\r\n}");
+            }
+
             Settings settings;
             try
             {
                 //Load settings
-                settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("Settings.json"));
+                settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText($"{_downloadFolder}Settings.json"));
 
                 if (settings.FirstTimeSetupDone == false)
                 {
@@ -44,17 +53,18 @@ namespace ngrokGUI
                         settings.DataCenterRegion = firstTimeWizard.cmbTunnelExit.SelectedIndex;
                         settings.PaidAccount = (bool) firstTimeWizard.cbxPaidAccount.IsChecked;
 
-                        File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
+                        File.WriteAllText($"{_downloadFolder}Settings.json", JsonConvert.SerializeObject(settings));
                     }
                 }
 
                 PaidAccount = settings.PaidAccount;
-                sbStatus.Content = "connected to " + (NgrokManager.Region)settings.DataCenterRegion;
+                sbStatus.Content = $"connected to {(NgrokManager.Region)settings.DataCenterRegion}";
                 _ngrokManager.StartNgrok((NgrokManager.Region)settings.DataCenterRegion);
 
-                if (File.Exists("SavedTunnels.json"))
+                if (File.Exists($"{_downloadFolder}SavedTunnels.json"))
                 {
-                    JsonConvert.DeserializeObject<List<TunnelDescription>>(File.ReadAllText("SavedTunnels.json"))?.ForEach( x => _tunnelDescriptions.Add(x));
+                    JsonConvert.DeserializeObject<List<TunnelDescription>>(File.ReadAllText(
+                        $"{_downloadFolder}SavedTunnels.json"))?.ForEach( x => _tunnelDescriptions.Add(x));
                 }
 
             }
@@ -139,7 +149,7 @@ namespace ngrokGUI
                 }
             }
 
-            File.WriteAllText(@"SavedTunnels.json", JsonConvert.SerializeObject(_tunnelDescriptions));
+            File.WriteAllText($"{_downloadFolder}SavedTunnels.json", JsonConvert.SerializeObject(_tunnelDescriptions));
 
         }
 
@@ -177,7 +187,7 @@ namespace ngrokGUI
             if (result == MessageBoxResult.Yes)
             {
                 Settings settings = new Settings {FirstTimeSetupDone = false};
-                File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings));
+                File.WriteAllText($"{_downloadFolder}Settings.json", JsonConvert.SerializeObject(settings));
                 Close();
             }
         }
@@ -235,8 +245,8 @@ namespace ngrokGUI
                 var result = await _ngrokManager.StopTunnel(_tunnelDescriptions[lwTunnels.SelectedIndex].Name);
             }
 
-                var tunnel = _tunnelDescriptions.SingleOrDefault(x => x.Name == _tunnelDescriptions[lwTunnels.SelectedIndex].Name);
-                _tunnelDescriptions.Remove(tunnel);
+            var tunnel = _tunnelDescriptions.SingleOrDefault(x => x.Name == _tunnelDescriptions[lwTunnels.SelectedIndex].Name);
+            _tunnelDescriptions.Remove(tunnel);
 
         }
     }

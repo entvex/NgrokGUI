@@ -49,7 +49,7 @@ namespace ngrokGUI
 
         private void BtnDownload_OnClick(object sender, RoutedEventArgs e)
         {
-            if (btnDownload.Content == "Next")
+            if ((string)btnDownload.Content == "Next")
             {
                 tabcl.SelectedIndex = 1;
                 return;

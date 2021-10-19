@@ -32,6 +32,7 @@ namespace ngrokGUI
 
             if (!File.Exists($"{_downloadFolder}Settings.json"))
             {
+                Directory.CreateDirectory(_downloadFolder);
                 File.WriteAllText($"{_downloadFolder}Settings.json", "{\r\n  \"firstTimeSetupDone\": false\r\n}");
             }
 

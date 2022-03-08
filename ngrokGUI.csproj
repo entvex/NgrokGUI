@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>icons8-tunnel-256.ico</ApplicationIcon>
     <AssemblyName>ngrokGUI</AssemblyName>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NgrokSharp" Version="1.0.7" />
+    <PackageReference Include="NgrokSharp" Version="1.0.12" />
   </ItemGroup>
 
   <ItemGroup>

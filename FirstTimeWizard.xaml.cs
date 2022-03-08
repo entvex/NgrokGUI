@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using NgrokSharp;
@@ -35,7 +36,6 @@ namespace ngrokGUI
             cmbTunnelExit.SelectedIndex = 0;
 
             _ngrokManager = ngrokManager;
-            _ngrokManager.DownloadAndUnZipDone += _ngrokManager_DownloadAndUnZipDone;
         }
 
         private void _ngrokManager_DownloadAndUnZipDone(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace ngrokGUI
             pbprogress.Value = 100;
         }
 
-        private void BtnDownload_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnDownload_OnClick(object sender, RoutedEventArgs e)
         {
             if ((string)btnDownload.Content == "Next")
             {
@@ -58,7 +58,7 @@ namespace ngrokGUI
             txtbkDownloadInstruction.Text = "Please wait while ngrok is downloading";
             pbprogress.IsIndeterminate = true;
             btnDownload.IsEnabled = false;
-            _ngrokManager.DownloadNgrok();
+            await _ngrokManager.DownloadAndUnzipNgrokAsync();
         }
 
         private void BtnSelectDataCenter_OnClick(object sender, RoutedEventArgs e)
@@ -66,7 +66,7 @@ namespace ngrokGUI
             tabcl.SelectedIndex = 2;
         }
 
-        private void BtnAuth_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnAuth_OnClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtbxAuthToken.Text))
             {
@@ -88,7 +88,7 @@ namespace ngrokGUI
                 }
             }
 
-            _ngrokManager.RegisterAuthToken(txtbxAuthToken.Text);
+            await _ngrokManager.RegisterAuthTokenAsync(txtbxAuthToken.Text);
 
             DialogResult = true;
 

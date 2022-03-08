@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text.Json;
 using System.Windows;
-using Newtonsoft.Json;
 using NgrokSharp;
+using NgrokSharp.DTO;
 
 namespace ngrokGUI
 {
@@ -40,7 +42,7 @@ namespace ngrokGUI
             try
             {
                 //Load settings
-                settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText($"{_downloadFolder}Settings.json"));
+                settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText($"{_downloadFolder}Settings.json"));
 
                 if (settings.FirstTimeSetupDone == false)
                 {
@@ -53,7 +55,7 @@ namespace ngrokGUI
                         settings.DataCenterRegion = firstTimeWizard.cmbTunnelExit.SelectedIndex;
                         settings.PaidAccount = (bool) firstTimeWizard.cbxPaidAccount.IsChecked;
 
-                        File.WriteAllText($"{_downloadFolder}Settings.json", JsonConvert.SerializeObject(settings));
+                        File.WriteAllText($"{_downloadFolder}Settings.json", JsonSerializer.Serialize(settings));
                     }
                 }
 
@@ -63,7 +65,7 @@ namespace ngrokGUI
 
                 if (File.Exists($"{_downloadFolder}SavedTunnels.json"))
                 {
-                    JsonConvert.DeserializeObject<List<TunnelDescription>>(File.ReadAllText(
+                    JsonSerializer.Deserialize<List<TunnelDescription>>(File.ReadAllText(
                         $"{_downloadFolder}SavedTunnels.json"))?.ForEach( x => _tunnelDescriptions.Add(x));
                 }
 
@@ -106,12 +108,12 @@ namespace ngrokGUI
                     startTunnelDto.bind_tls = "true";
                 }
 
-                var httpResponseMessage = await _ngrokManager.StartTunnel(startTunnelDto);
+                var httpResponseMessage = await _ngrokManager.StartTunnelAsync(startTunnelDto);
 
                 if ((int) httpResponseMessage.StatusCode == 201)
                 {
                     var tunnelDetail =
-                        JsonConvert.DeserializeObject<TunnelDetailDTO>(
+                        JsonSerializer.Deserialize<TunnelDetailDTO>(
                             await httpResponseMessage.Content.ReadAsStringAsync());
 
                     var tunnel = new TunnelDescription
@@ -128,7 +130,7 @@ namespace ngrokGUI
                 else
                 {
                     var tunnelError =
-                        JsonConvert.DeserializeObject<TunnelErrorDTO>(
+                        JsonSerializer.Deserialize<TunnelErrorDTO>(
                             await httpResponseMessage.Content.ReadAsStringAsync());
                     MessageBox.Show(tunnelError.Details.Err);
                 }
@@ -149,7 +151,7 @@ namespace ngrokGUI
                 }
             }
 
-            File.WriteAllText($"{_downloadFolder}SavedTunnels.json", JsonConvert.SerializeObject(_tunnelDescriptions));
+            File.WriteAllText($"{_downloadFolder}SavedTunnels.json", JsonSerializer.Serialize(_tunnelDescriptions));
 
         }
 
@@ -167,9 +169,9 @@ namespace ngrokGUI
         {
             if (lwTunnels.SelectedIndex == -1) return;
 
-            var result = await _ngrokManager.StopTunnel(_tunnelDescriptions[lwTunnels.SelectedIndex].Name);
+            var result = await _ngrokManager.StopTunnelAsync(_tunnelDescriptions[lwTunnels.SelectedIndex].Name);
 
-            if (result == 204)
+            if (result.StatusCode == HttpStatusCode.NoContent)
             {
                 _tunnelDescriptions[lwTunnels.SelectedIndex].Active = false;
 
@@ -187,7 +189,7 @@ namespace ngrokGUI
             if (result == MessageBoxResult.Yes)
             {
                 Settings settings = new Settings {FirstTimeSetupDone = false};
-                File.WriteAllText($"{_downloadFolder}Settings.json", JsonConvert.SerializeObject(settings));
+                File.WriteAllText($"{_downloadFolder}Settings.json", JsonSerializer.Serialize(settings));
                 Close();
             }
         }
@@ -215,12 +217,12 @@ namespace ngrokGUI
                 startTunnelDto.bind_tls = "true";
             }
 
-            var httpResponseMessage = await _ngrokManager.StartTunnel(startTunnelDto);
+            var httpResponseMessage = await _ngrokManager.StartTunnelAsync(startTunnelDto);
 
             if ((int)httpResponseMessage.StatusCode == 201)
             {
                 var tunnelDetail =
-                    JsonConvert.DeserializeObject<TunnelDetailDTO>(
+                    JsonSerializer.Deserialize<TunnelDetailDTO>(
                         await httpResponseMessage.Content.ReadAsStringAsync());
 
                 _tunnelDescriptions[lwTunnels.SelectedIndex].Active = true;
@@ -229,7 +231,7 @@ namespace ngrokGUI
             else
             {
                 var tunnelError =
-                    JsonConvert.DeserializeObject<TunnelErrorDTO>(
+                    JsonSerializer.Deserialize<TunnelErrorDTO>(
                         await httpResponseMessage.Content.ReadAsStringAsync());
                 MessageBox.Show(tunnelError.Details.Err);
             }
@@ -242,7 +244,7 @@ namespace ngrokGUI
 
             if (_tunnelDescriptions[lwTunnels.SelectedIndex].Active)
             {
-                var result = await _ngrokManager.StopTunnel(_tunnelDescriptions[lwTunnels.SelectedIndex].Name);
+                var result = await _ngrokManager.StopTunnelAsync(_tunnelDescriptions[lwTunnels.SelectedIndex].Name);
             }
 
             var tunnel = _tunnelDescriptions.SingleOrDefault(x => x.Name == _tunnelDescriptions[lwTunnels.SelectedIndex].Name);

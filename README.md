@@ -32,6 +32,9 @@
       <a href="#about-the-project">About The Project</a>
     </li>
     <li>
+      <a href="#Features">Features</a>
+    </li>
+    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
@@ -53,9 +56,23 @@
 NgrokGUI is a windows GUI for ngrok. It helps download ngrok, getting it ready for first time use and managing tunnels. The idea for the project arose due to friends wanting a gui to ngrok that was more user friendly.
 I later found a Dungeons & Dragons community that uses [Foundryvtt](https://foundryvtt.com/) to run their games. NgrokGUI allows an easy way for the dungeon master to host the game without spending additional money on hosting or messing with port forwarding.
 
+<!--
+
 #### 🔨 New version underway! 🔨
 I have gotten requests for this application to be ported to Linux and Mac as well. Therefore, I am in the process of rewriting the application in avaloniaui.
 Look at the v2 branch if you wanna follow the progress
+
+-->
+
+## Features
+
+* Create tunnels for http https and tcp protocols.
+* Downloads Ngrok automatically.
+* Start and stop tunnels.
+* Remembers previous created tunnels.
+* Support for paid Ngrok account features
+  * Create tunnel with subdomain
+  * Create tunnels on custom branded domains
 
 ### Built With
 
@@ -69,7 +86,7 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 * Windows 7 or Later
-* [.NET 5.0 x64](https://dotnet.microsoft.com/download/dotnet/5.0/runtime/) or later
+* [.NET 6.0 x64](https://dotnet.microsoft.com/download/dotnet/6.0/runtime) or later
 * [Ngrok authtoken](https://dashboard.ngrok.com/get-started/setup)
 ### Installation
 

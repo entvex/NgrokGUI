@@ -91,7 +91,7 @@ To get a local copy up and running follow these simple steps.
 ### Installation
 
 1. Go to the [releases](https://github.com/entvex/NgrokGUI/releases) section.
-2. Download the latest NgrokGUI.zip and unzip it a place were you would like to keep it.
+2. Download the latest NgrokGUI.exe and place it were you would like to keep it.
 3. Run the NgrokGUI.exe and follow the First Time Wizard on screen.
 
 <!-- USAGE EXAMPLES -->

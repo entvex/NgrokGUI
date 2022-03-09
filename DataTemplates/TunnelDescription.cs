@@ -33,6 +33,7 @@ namespace ngrokGUI
         }
 
         public string SubDomain { get; set; }
+        public string CustomDomain { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

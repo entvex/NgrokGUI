@@ -25,8 +25,14 @@ namespace ngrokGUI
             if (!paidAccount)
             {
                 tbSubdomain.Visibility = Visibility.Hidden;
+                tbCustomDomain.Visibility = Visibility.Hidden;
+
                 llsubdomain.Visibility = Visibility.Hidden;
+                llCustomDomain.Visibility = Visibility.Hidden;
+
                 wdSubdomain.MaxHeight = 0;
+                wdCustomdomain.MaxHeight = 0;
+                
                 Height = 170;
             }
 

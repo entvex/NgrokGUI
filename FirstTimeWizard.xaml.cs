@@ -38,15 +38,6 @@ namespace ngrokGUI
             _ngrokManager = ngrokManager;
         }
 
-        private void _ngrokManager_DownloadAndUnZipDone(object sender, EventArgs e)
-        {
-            btnDownload.Content = "Next";
-            txtbkDownloadInstruction.Text = "Download completed successfully! Please click next.";
-            btnDownload.IsEnabled = true;
-            pbprogress.IsIndeterminate = false;
-            pbprogress.Value = 100;
-        }
-
         private async void BtnDownload_OnClick(object sender, RoutedEventArgs e)
         {
             if ((string)btnDownload.Content == "Next")
@@ -59,6 +50,16 @@ namespace ngrokGUI
             pbprogress.IsIndeterminate = true;
             btnDownload.IsEnabled = false;
             await _ngrokManager.DownloadAndUnzipNgrokAsync();
+            DownloadAndUnZipDone();
+        }
+
+        private void DownloadAndUnZipDone()
+        {
+            btnDownload.Content = "Next";
+            txtbkDownloadInstruction.Text = "Download completed successfully! Please click next.";
+            btnDownload.IsEnabled = true;
+            pbprogress.IsIndeterminate = false;
+            pbprogress.Value = 100;
         }
 
         private void BtnSelectDataCenter_OnClick(object sender, RoutedEventArgs e)

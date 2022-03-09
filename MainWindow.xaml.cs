@@ -98,7 +98,8 @@ namespace ngrokGUI
                     proto = addNewTunnelWindow.cobProtocol.SelectionBoxItem.ToString(),
                     addr = addNewTunnelWindow.tbLocalPort.Text,
                     bind_tls = "false",
-                    subdomain = addNewTunnelWindow.tbSubdomain.Text
+                    subdomain = addNewTunnelWindow.tbSubdomain.Text,
+                    hostname = addNewTunnelWindow.tbCustomDomain.Text
                 };
 
                 // bind_tls http bind an HTTPS or HTTP endpoint or both true, false, or both
@@ -123,7 +124,8 @@ namespace ngrokGUI
                         Port = Convert.ToInt32(addNewTunnelWindow.tbLocalPort.Text),
                         Url = tunnelDetail.PublicUrl,
                         Active = true,
-                        SubDomain = addNewTunnelWindow.tbSubdomain.Text
+                        SubDomain = addNewTunnelWindow.tbSubdomain.Text,
+                        CustomDomain = addNewTunnelWindow.tbCustomDomain.Text
                     };
                     _tunnelDescriptions.Add(tunnel);
                 }
@@ -207,7 +209,8 @@ namespace ngrokGUI
                 proto = _tunnelDescriptions[lwTunnels.SelectedIndex].Protocol,
                 addr = _tunnelDescriptions[lwTunnels.SelectedIndex].Port.ToString(),
                 bind_tls = "false",
-                subdomain = _tunnelDescriptions[lwTunnels.SelectedIndex].SubDomain
+                subdomain = _tunnelDescriptions[lwTunnels.SelectedIndex].SubDomain,
+                hostname = _tunnelDescriptions[lwTunnels.SelectedIndex].CustomDomain
             };
 
             // bind_tls http bind an HTTPS or HTTP endpoint or both true, false, or both
